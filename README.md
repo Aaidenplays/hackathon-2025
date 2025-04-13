@@ -112,6 +112,7 @@ docker-compose up --build -d
    ```bash
    docker ps -a
    ```
+![Container Satus](assets/Container-Status.png)
 
 2. Verify that all containers are part of the shared network:
    ```bash
