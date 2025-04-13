@@ -1,6 +1,8 @@
 # Modern AI Assistant Architecture
 ![Architecture](assets/Architecture.png)
 
+## Chatflow Diagram
+![Chatflow](assets/chatflow.png)
 
 # Modern AI Assistant Setup Guide
 
