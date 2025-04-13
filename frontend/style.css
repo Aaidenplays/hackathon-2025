@@ -1,0 +1,17 @@
+/* Style for expandable content */
+.expandable {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Style for when expandable content is open */
+.expandable.open {
+    max-height: 500px; /* Adjust based on your content length */
+}
+
+/* Style for the toggle button */
+.toggle-btn {
+    cursor: pointer;
+    color: #007bff;
+}
