@@ -1,5 +1,5 @@
 # Modern AI Assistant Architecture
-    ![Architecture](assets/Architecture.png)
+![Architecture](assets/Architecture.png)
 
 
 # Modern AI Assistant Setup Guide
