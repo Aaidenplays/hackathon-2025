@@ -1,5 +1,3 @@
-Apologies for the confusion earlier. Here's the entire `README.md` content formatted properly and included within a single code block:
-
 ```markdown
 # Modern AI Assistant Setup Guide
 
