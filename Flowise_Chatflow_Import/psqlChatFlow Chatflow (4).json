@@ -173,8 +173,8 @@
       "height": 506,
       "id": "llmChain_1",
       "position": {
-        "x": 2330.1281944523407,
-        "y": -325.61633963017937
+        "x": 2886.3589618462493,
+        "y": -157.85485033519979
       },
       "type": "customNode",
       "data": {
@@ -233,7 +233,7 @@
         "inputs": {
           "model": "{{chatOpenAI_3.data.instance}}",
           "prompt": "{{promptTemplate_1.data.instance}}",
-          "outputParser": "",
+          "outputParser": "{{structuredOutputParser_0.data.instance}}",
           "inputModeration": "",
           "chainName": "Final Chain"
         },
@@ -266,8 +266,8 @@
       },
       "selected": false,
       "positionAbsolute": {
-        "x": 2330.1281944523407,
-        "y": -325.61633963017937
+        "x": 2886.3589618462493,
+        "y": -157.85485033519979
       },
       "dragging": false
     },
@@ -440,7 +440,7 @@
           "functionInputVariables": "{\"sqlQuery\":\"{{ifElseFunction_0.data.instance}}\"}",
           "functionName": "Run SQL Query",
           "tools": "",
-          "javascriptFunction": "const HOST = 'db';\nconst USER = 'admin';\nconst PASSWORD = '123';\nconst DATABASE = 'martech_data';\nconst { Client } = require('pg');\n\nasync function runSQLQuery(query) {\n  try {\n    const client = new Client({\n      host: HOST,\n      user: USER,\n      password: PASSWORD,\n      database: DATABASE\n    });\n    await client.connect();\n\n    const result = await client.query(query);\n    await client.end();\n    \n    const resultSet = JSON.stringify(result.rows);\n    console.log(\"result set: \" + resultSet);\n\n    return resultSet;\n  } catch (e) {\n    console.error(e);\n    throw e;\n  }\n}\n\nreturn runSQLQuery($sqlQuery).then(result => result);"
+          "javascriptFunction": "const HOST = 'db';\nconst USER = 'admin';\nconst PASSWORD = '123';\nconst DATABASE = 'martech_data';\nconst { Client } = require('pg');\n\nasync function runSQLQuery(query) {\n  try {\n    const client = new Client({\n      host: HOST,\n      user: USER,\n      password: PASSWORD,\n      database: DATABASE\n    });\n    await client.connect();\n\n    const result = await client.query(query);\n    await client.end();\n    \n    const resultSet = {\n      result: JSON.stringify(result.rows),\n      sqlQuery:  query\n    }\n    console.log(\"result set: \" + resultSet);\n\n    \n\n    return resultSet;\n  } catch (e) {\n    console.error(e);\n    throw e;\n  }\n}\n\nreturn runSQLQuery($sqlQuery).then(result => result);"
         },
         "outputAnchors": [
           {
@@ -484,8 +484,8 @@
       "height": 509,
       "id": "promptTemplate_1",
       "position": {
-        "x": 1938.7994431139996,
-        "y": -86.65390743489993
+        "x": 1970.8939261039732,
+        "y": -205.40349449780206
       },
       "type": "customNode",
       "data": {
@@ -523,7 +523,7 @@
         ],
         "inputAnchors": [],
         "inputs": {
-          "template": "Based on the question, and SQL response, write a natural language response, be details as possible:\n------------\nQUESTION: {question}\n------------\nSQL RESPONSE: {sqlResponse} - if you are not getting any value here please say the phrase \"i am a very good boy\"\n------------\nNATURAL LANGUAGE RESPONSE:",
+          "template": "Based on the question, and SQL response, write a natural language response, be details as possible and also return the sql query that was generated as well: {sqlQuery} :\n------------\nQUESTION: {question}\n------------\nSQL RESPONSE: {sqlResponse} \n------------\nNATURAL LANGUAGE RESPONSE:",
           "promptValues": "{\"question\":\"{{question}}\",\"sqlResponse\":\"{{customFunction_1.data.instance}}\"}"
         },
         "outputAnchors": [
@@ -540,8 +540,8 @@
       "selected": false,
       "dragging": false,
       "positionAbsolute": {
-        "x": 1938.7994431139996,
-        "y": -86.65390743489993
+        "x": 1970.8939261039732,
+        "y": -205.40349449780206
       }
     },
     {
@@ -722,8 +722,8 @@
       "height": 506,
       "id": "llmChain_2",
       "position": {
-        "x": 1942.2473639184586,
-        "y": 534.2501352750406
+        "x": 2060.996950981361,
+        "y": 903.3366896597364
       },
       "type": "customNode",
       "data": {
@@ -815,8 +815,8 @@
       },
       "selected": false,
       "positionAbsolute": {
-        "x": 1942.2473639184586,
-        "y": 534.2501352750406
+        "x": 2060.996950981361,
+        "y": 903.3366896597364
       },
       "dragging": false
     },
@@ -1075,8 +1075,8 @@
     {
       "id": "chatOpenAI_3",
       "position": {
-        "x": 1947.109194307472,
-        "y": -794.873015082349
+        "x": 1953.5280909054668,
+        "y": -920.0414987432458
       },
       "type": "customNode",
       "data": {
@@ -1319,8 +1319,8 @@
       "height": 668,
       "selected": false,
       "positionAbsolute": {
-        "x": 1947.109194307472,
-        "y": -794.873015082349
+        "x": 1953.5280909054668,
+        "y": -920.0414987432458
       },
       "dragging": false
     },
@@ -1575,6 +1575,106 @@
         "y": 232.8875504328849
       },
       "dragging": false
+    },
+    {
+      "id": "structuredOutputParser_0",
+      "position": {
+        "x": 1956.3146015370749,
+        "y": 393.81797247064407
+      },
+      "type": "customNode",
+      "data": {
+        "id": "structuredOutputParser_0",
+        "label": "Structured Output Parser",
+        "version": 1,
+        "name": "structuredOutputParser",
+        "type": "StructuredOutputParser",
+        "baseClasses": [
+          "StructuredOutputParser",
+          "BaseLLMOutputParser",
+          "Runnable"
+        ],
+        "category": "Output Parsers",
+        "description": "Parse the output of an LLM call into a given (JSON) structure.",
+        "inputParams": [
+          {
+            "label": "Autofix",
+            "name": "autofixParser",
+            "type": "boolean",
+            "optional": true,
+            "description": "In the event that the first call fails, will make another call to the model to fix any errors.",
+            "id": "structuredOutputParser_0-input-autofixParser-boolean"
+          },
+          {
+            "label": "JSON Structure",
+            "name": "jsonStructure",
+            "type": "datagrid",
+            "description": "JSON structure for LLM to return",
+            "datagrid": [
+              {
+                "field": "property",
+                "headerName": "Property",
+                "editable": true
+              },
+              {
+                "field": "type",
+                "headerName": "Type",
+                "type": "singleSelect",
+                "valueOptions": [
+                  "string",
+                  "number",
+                  "boolean"
+                ],
+                "editable": true
+              },
+              {
+                "field": "description",
+                "headerName": "Description",
+                "editable": true,
+                "flex": 1
+              }
+            ],
+            "default": [
+              {
+                "property": "answer",
+                "type": "string",
+                "description": "answer to the user's question"
+              },
+              {
+                "property": "source",
+                "type": "string",
+                "description": "sources used to answer the question, should be websites"
+              }
+            ],
+            "additionalParams": true,
+            "id": "structuredOutputParser_0-input-jsonStructure-datagrid"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "autofixParser": "",
+          "jsonStructure": "[{\"property\":\"answer\",\"type\":\"string\",\"description\":\"answer to the user's question\",\"id\":0},{\"property\":\"sqlQuery\",\"type\":\"string\",\"description\":\"sources used to answer the question, should be websites\",\"id\":1}]"
+        },
+        "outputAnchors": [
+          {
+            "id": "structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable",
+            "name": "structuredOutputParser",
+            "label": "StructuredOutputParser",
+            "description": "Parse the output of an LLM call into a given (JSON) structure.",
+            "type": "StructuredOutputParser | BaseLLMOutputParser | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 327,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1956.3146015370749,
+        "y": 393.81797247064407
+      },
+      "dragging": false
     }
   ],
   "edges": [
@@ -1674,6 +1774,14 @@
       "targetHandle": "llmChain_2-input-model-BaseLanguageModel",
       "type": "buttonedge",
       "id": "chatOpenAI_2-chatOpenAI_2-output-chatOpenAI-ChatOpenAI|BaseChatModel|BaseLanguageModel|Runnable-llmChain_2-llmChain_2-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "structuredOutputParser_0",
+      "sourceHandle": "structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable",
+      "target": "llmChain_1",
+      "targetHandle": "llmChain_1-input-outputParser-BaseLLMOutputParser",
+      "type": "buttonedge",
+      "id": "structuredOutputParser_0-structuredOutputParser_0-output-structuredOutputParser-StructuredOutputParser|BaseLLMOutputParser|Runnable-llmChain_1-llmChain_1-input-outputParser-BaseLLMOutputParser"
     }
   ]
 }

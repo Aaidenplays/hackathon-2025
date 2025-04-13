@@ -1,17 +1,64 @@
-/* Style for expandable content */
-.expandable {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Style for when expandable content is open */
-.expandable.open {
-    max-height: 500px; /* Adjust based on your content length */
+header {
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
 }
 
-/* Style for the toggle button */
+h1, h2 {
+    color: #ffffff;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+.form-control::placeholder {
+    color: #aaaaaa;
+}
+
+.btn-primary {
+    background-color: #6200ea;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #3700b3;
+}
+
+.border {
+    border-color: #444444 !important;
+}
+
+.bg-white {
+    background-color: #1e1e1e !important;
+}
+
+footer {
+    background-color: #1f1f1f;
+    padding: 15px;
+}
+
 .toggle-btn {
+    color: #6200ea;
     cursor: pointer;
-    color: #007bff;
+}
+
+.toggle-btn:hover {
+    text-decoration: underline;
 }

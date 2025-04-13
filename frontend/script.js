@@ -1,9 +1,10 @@
+import env from './env.js';
+
 async function query(data) {
     const response = await fetch(
-        "http://flowise:3000/api/v1/prediction/1e7c6310-564d-49a7-9449-02a62871bd61",
+        `http://localhost:3000/api/v1/prediction/${env.PREDICTION_ID}`,
         {
             headers: {
-                Authorization: "Bearer engqFgdQTKY0nQH95KoHxSU2DbvmamVPf6g_5QqtF64",
                 "Content-Type": "application/json"
             },
             method: "POST",
@@ -15,34 +16,39 @@ async function query(data) {
 }
 
 
+// filepath: frontend-modern/script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const submitButton = document.getElementById('submitButton');
+    const userPrompt = document.getElementById('userPrompt');
+    const responseArea = document.getElementById('responseArea');
+    const sourcesArea = document.getElementById('sourcesArea');
+    const toggleSources = document.getElementById('toggleSources');
 
-document.getElementById('submitButton').addEventListener('click', () => {
-    const userPrompt = document.getElementById('userPrompt').value;
+    submitButton.addEventListener('click', function() {
+        const prompt = userPrompt.value;
+        if (prompt) {
+            query({"question": prompt}).then((response) => {
+                // Simulate a response for demonstration purposes
+                responseArea.innerHTML = `<p>You asked: ${prompt}</p><p>Response: ${response.json.answer}</p>`;
+                userPrompt.value = ''; // Clear input after submission
     
-    query({"question": userPrompt}).then((response) => {
-        console.log(response);
-        
-        // Example response simulation
-        document.getElementById('responseArea').innerHTML = `<p><strong>You asked:</strong> ${userPrompt}</p><p>Here's your AI response: ${response}</p>`;
-    
-        // Example sources simulation
-        document.getElementById('sourcesArea').innerHTML = `
-            <ul>
-                <li>Source 1: Example Source Material</li>
-                <li>Source 2: Additional Context</li>
-            </ul>
-        `;
+                // Example sources simulation
+                sourcesArea.innerHTML = `
+                <p>
+                    ${response.json.sqlQuery}
+                </p>
+                `;
+            })
+        }
     });
 
+    toggleSources.addEventListener('click', function() {
+        if (sourcesArea.style.display === 'none' || sourcesArea.style.display === '') {
+            sourcesArea.style.display = 'block';
+            toggleSources.textContent = '[Hide]';
+        } else {
+            sourcesArea.style.display = 'none';
+            toggleSources.textContent = '[Show]';
+        }
+    });
 });
-
-// Toggle expandable div
-document.getElementById('toggleSources').addEventListener('click', () => {
-    const sourcesArea = document.getElementById('sourcesArea');
-    sourcesArea.classList.toggle('open');
-    const toggleText = sourcesArea.classList.contains('open') ? '[Hide]' : '[Show]';
-    document.getElementById('toggleSources').textContent = toggleText;
-    
-});
-
-
