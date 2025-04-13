@@ -1,4 +1,3 @@
-```markdown
 # Modern AI Assistant Setup Guide
 
 ## Prerequisites
