@@ -8,17 +8,6 @@ services:
     networks:
       - shared_network
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
-    networks:
-      - shared_network
-
   db:
     image: postgres:latest
     environment:
