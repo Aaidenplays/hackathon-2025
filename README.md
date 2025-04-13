@@ -112,12 +112,18 @@ docker-compose up --build -d
    ```bash
    docker ps -a
    ```
-![Container Satus](assets/Container-Status.png)
+    ![Container Satus](assets/Container-Status.png)
+
+    you can also use the docker desktop UI for this:
+    ![Docker Desktop UI](assets/DockerUi.png)
+
 
 2. Verify that all containers are part of the shared network:
    ```bash
    docker network inspect shared_network
    ```
+    ![Network Satus](assets/network-status.png)
+ 
 
 3. If a container is not running, view its logs:
    ```bash
@@ -139,7 +145,8 @@ docker-compose up --build -d
    http://localhost:3000/
    ```
 2. Click `+ Add New` to create a new chatflow.
-   - *[Insert screenshot of the "Add New" button]*
+    ![Add New Button](assets/New-Btn.png)
+
 
 ### Step 6: Load the Chatflow
 1. Click the settings cogwheel and select `Load Chatflow`.
@@ -156,7 +163,7 @@ docker-compose up --build -d
 
 ### Step 8: Validate the Chatflow
 1. Click the chat icon to test the chatflow.
-   - *[Insert screenshot of the chat icon]*
+    ![Chat Button](assets/Chat-Btn.png)
 
 2. Use the following prompt to test:
    ```
@@ -206,7 +213,7 @@ http://localhost:8080/
 
 ## Notes
 - Export your chatflow frequently to avoid losing progress when restarting the Flowise container.
-- *[Insert screenshots of Docker Desktop, running containers, and Flowise UI as placeholders]*
+    ![Export Button](assets/Export-Btn.png)
 
 ---
 
