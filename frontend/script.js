@@ -28,16 +28,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const prompt = userPrompt.value;
         if (prompt) {
             query({"question": prompt}).then((response) => {
-                // Simulate a response for demonstration purposes
-                responseArea.innerHTML = `<p>You asked: ${prompt}</p><p>Response: ${response.json.answer}</p>`;
-                userPrompt.value = ''; // Clear input after submission
-    
-                // Example sources simulation
-                sourcesArea.innerHTML = `
-                <p>
-                    ${response.json.sqlQuery}
-                </p>
-                `;
+                if(response.message && response.message.includes("error")) {
+                    responseArea.innerHTML = `<p>The db agent was unable to generate a query with the prompt that you entered and has returned this error as a result: ${response.message}</p>`;
+                    sourcesArea.innerHTML = "";
+                } else {
+                    // Simulate a response for demonstration purposes
+                    responseArea.innerHTML = `<p>You asked: ${prompt}</p><p>Response: ${response.json.answer}</p>`;
+                    userPrompt.value = ''; // Clear input after submission
+        
+                    // Example sources simulation
+                    sourcesArea.innerHTML = `
+                    <p>
+                        ${response.json.sqlQuery}
+                    </p>
+                    `;
+                }
+
             })
         }
     });
