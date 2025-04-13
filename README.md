@@ -28,7 +28,7 @@ Run the following command to clone the project:
 git clone git@github.com:Aaidenplays/hackathon-2025.git
 ```
 
-### Step 2: Create `env.js` File
+### Step 2: Create `env.js` File and setup flowise
 1. Navigate to the `frontend` folder.
 2. Create a file named `env.js` and paste the following content:
    ```javascript
@@ -37,6 +37,46 @@ git clone git@github.com:Aaidenplays/hackathon-2025.git
    };
    ```
    - The `PREDICTION_ID` will be added later.
+   
+## Flowise Setup
+
+### 1: Clone the Flowise Repository
+Clone the Flowise GitHub project within this project directory:
+```bash
+git clone https://github.com/FlowiseAI/Flowise.git
+```
+
+### 2: Navigate to the Docker Folder
+Open the cloned project and navigate to the following folder:
+`Flowise\docker`
+
+
+### 3: Rename the `.env` File
+Rename the file `.env.example` to `.env`.
+
+### 4: Update the `docker-compose.yml` File
+Replace the contents of the `docker-compose.yml` file with the following configuration:
+```yaml
+services:
+  flowise:
+    image: flowiseai/flowise
+    restart: always
+    environment:
+      - DATABASE_TYPE=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=martech_data
+      - DATABASE_USER=admin
+      - DATABASE_PASSWORD=123
+    ports:
+      - '3000:3000'
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    external: true
+```
 
 ---
 
