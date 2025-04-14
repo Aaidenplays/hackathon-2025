@@ -1,3 +1,6 @@
+# Demo video walkthrough
+[Watch the demo video](https://youtu.be/j_AtJE7DXFs)
+
 # Modern AI Assistant Architecture
 ![Architecture](assets/Architecture.png)
 
