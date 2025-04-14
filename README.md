@@ -1,5 +1,5 @@
 # Demo video walkthrough
-![Watch the demo video](https://youtu.be/j_AtJE7DXFs)
+<iframe width="560" height="315" src="https://youtu.be/j_AtJE7DXFs" frameborder="0" allowfullscreen></iframe>
 
 # Modern AI Assistant Architecture
 ![Architecture](assets/Architecture.png)
